@@ -2,10 +2,148 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Portfolio Rasspixels</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rasspixels | Portfolio</title>
+    <style>
+        /* Base (Style très moderne type Framer) */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #0d0d0d; /* Fond noir très classe */
+            color: #ffffff; /* Texte blanc */
+            line-height: 1.6;
+        }
+
+        /* En-tête */
+        header {
+            padding: 30px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        /* Section Principale (Hero) */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 50px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            color: #a1a1a1; /* Gris clair */
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Grille du Portfolio */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0 5% 100px 5%;
+        }
+
+        /* Cartes des projets */
+        .project-card {
+            background-color: #1a1a1a;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            background-color: #333; /* Remplaçant de l'image pour l'instant */
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-info h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .project-info p {
+            color: #888;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Salut, je suis Rasspixels ! 🎨</h1>
-    <p>Mon portfolio est en cours de création. Revenez bientôt !</p>
+
+    <header>
+        <div class="logo">Rasspixels.</div>
+        <nav>
+            <!-- On ajoutera des liens plus tard si besoin -->
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Créateur d'images et de vidéos.</h1>
+        <p>Bienvenue sur mon portfolio. Découvrez mon univers visuel, mes projets récents et ma passion pour l'image.</p>
+    </section>
+
+    <!-- C'est ici que tes images/vidéos apparaîtront plus tard -->
+    <section class="portfolio-grid" id="portfolio-container">
+        
+        <!-- Projet 1 (Exemple) -->
+        <div class="project-card">
+            <div class="project-image"></div>
+            <div class="project-info">
+                <h3>Projet Vidéo 1</h3>
+                <p>Court métrage / Réalisation</p>
+            </div>
+        </div>
+
+        <!-- Projet 2 (Exemple) -->
+        <div class="project-card">
+            <div class="project-image"></div>
+            <div class="project-info">
+                <h3>Shooting Photo 2</h3>
+                <p>Photographie de portrait</p>
+            </div>
+        </div>
+
+        <!-- Projet 3 (Exemple) -->
+        <div class="project-card">
+            <div class="project-image"></div>
+            <div class="project-info">
+                <h3>Montage 3</h3>
+                <p>Édition vidéo commerciale</p>
+            </div>
+        </div>
+
+    </section>
+
 </body>
 </html>
