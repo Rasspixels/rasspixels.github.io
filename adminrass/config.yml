@@ -1,7 +1,9 @@
 backend:
   name: github
-  repo: rasspixels/rasspixels.github.io # Remplace par ton pseudo s'il est différent
+  repo: rasspixels/rasspixels.github.io
   branch: main
+  base_url: https://api.decapbridge.com
+  auth_endpoint: /oauth/github/TON_SITE_ID_DECAPBRIDGE
 
 media_folder: "images/uploads" # Où seront stockées tes images de projets
 public_folder: "/images/uploads"
