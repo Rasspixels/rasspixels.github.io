@@ -11,6 +11,7 @@
     
     <style>
         :root {
+            /* Couleurs neumorphiques sombres et précises */
             --bg-dark: #0a0f16;        /* Fond plat sombre */
             --neu-light: #111a26;      /* Relief clair */
             --neu-dark: #030508;       /* Relief sombre */
@@ -121,7 +122,7 @@
             transform: scale(0.98);
         }
 
-        /* 3 Images de profil */
+        /* 3 Images de profil (Fonds neumorphiques de secours) */
         .hero-images {
             flex: 1;
             position: relative;
@@ -135,10 +136,15 @@
             width: 180px;
             height: 350px;
             border-radius: 24px;
-            background-color: #1e293b;
+            background-color: var(--bg-dark);
             box-shadow: 10px 10px 20px var(--neu-dark), -10px -10px 20px var(--neu-light);
             background-size: cover;
             background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.1);
+            font-size: 30px;
         }
         .img-1 { transform: rotate(-10deg) translateX(-80px); z-index: 1; }
         .img-2 { transform: rotate(0deg); z-index: 3; width: 200px; height: 380px; }
@@ -187,6 +193,11 @@
             background-size: cover;
             background-position: center;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.1);
+            font-size: 30px;
         }
         .wid-card:hover .wid-image {
             box-shadow: inset 5px 5px 10px var(--neu-dark), inset -5px -5px 10px var(--neu-light), 0 0 15px rgba(0, 229, 255, 0.3);
@@ -218,11 +229,16 @@
         .achievement-img {
             flex: 1;
             height: 250px;
-            background-color: #1a2433;
+            background-color: var(--bg-dark);
             border-radius: 16px;
             background-size: cover;
             background-position: center;
             box-shadow: inset 4px 4px 8px var(--neu-dark), inset -4px -4px 8px var(--neu-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.05);
+            font-size: 40px;
         }
         .achievement-text { flex: 1.5; }
         .achievement-text h3 {
@@ -321,7 +337,7 @@
             transition: all 0.2s ease;
         }
 
-        /* --- LIGHTBOX (VISIONNEUSE) --- */
+        /* --- LIGHTBOX (VISIONNEUSE PHOTO & VIDEO) --- */
         .lightbox {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -394,6 +410,11 @@
             border-radius: 50%;
             margin: 0 auto 30px auto;
             background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.05);
+            font-size: 30px;
         }
         footer p { margin-bottom: 25px; }
         .footer-bottom {
@@ -438,10 +459,10 @@
             </div>
         </div>
         <div class="hero-images">
-            <!-- Pense à ajouter tes photos de profil ici plus tard dans ton admin ! -->
-            <div class="hero-img img-1" style="background-image: url('images/uploads/profil1.jpg');"></div>
-            <div class="hero-img img-2" style="background-image: url('images/uploads/profil2.jpg');"></div>
-            <div class="hero-img img-3" style="background-image: url('images/uploads/profil3.jpg');"></div>
+            <!-- Emplacements neumorphiques -->
+            <div class="hero-img img-1"><i class="fa-regular fa-image"></i></div>
+            <div class="hero-img img-2"><i class="fa-regular fa-image"></i></div>
+            <div class="hero-img img-3"><i class="fa-regular fa-image"></i></div>
         </div>
     </section>
 
@@ -454,24 +475,24 @@
     <h2 class="section-title">What i do</h2>
     <section class="what-i-do">
         <div class="wid-card">
-            <div class="wid-image" style="background-image: url('images/uploads/service1.jpg');"></div>
+            <div class="wid-image"><i class="fa-solid fa-pen-nib"></i></div>
             <p>Logo, banner, flyers & more...</p>
         </div>
         <div class="wid-card">
-            <div class="wid-image" style="background-image: url('images/uploads/service2.jpg');"></div>
+            <div class="wid-image"><i class="fa-solid fa-palette"></i></div>
             <p>illustrations, motion design</p>
         </div>
         <div class="wid-card">
-            <div class="wid-image" style="background-image: url('images/uploads/service3.jpg');"></div>
+            <div class="wid-image"><i class="fa-solid fa-cubes"></i></div>
             <p>3D animation and modeling</p>
         </div>
     </section>
 
-    <!-- LATEST ACHIEVEMENT (Toujours statique pour ton meilleur projet, ou dynamique si besoin) -->
+    <!-- LATEST ACHIEVEMENT -->
     <h2 class="section-title">latest achievement</h2>
     <section class="achievements-container">
         <div class="achievement-card">
-            <div class="achievement-img" style="background-image: url('images/uploads/achievement1.jpg');"></div>
+            <div class="achievement-img"><i class="fa-solid fa-trophy"></i></div>
             <div class="achievement-text">
                 <h3>Markagenie SAS Website Redesign</h3>
                 <p>Dive into our latest exciting project: the complete redesign of the Markagenie SAS website. Crafting a modern and minimalist experience for users.</p>
@@ -524,15 +545,13 @@
     <!-- LIGHTBOX (VISIONNEUSE PHOTO & VIDEO) -->
     <div class="lightbox" id="lightbox">
         <button class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
-        <div class="lightbox-content" id="lightbox-content">
-            <!-- Le contenu (image ou iframe) sera injecté ici en JavaScript -->
-        </div>
+        <div class="lightbox-content" id="lightbox-content"></div>
     </div>
 
     <!-- FOOTER -->
     <footer>
         <h3>Do you have a project for us?</h3>
-        <div class="cat-illustration" style="background-image: url('images/uploads/chat.jpg');"></div>
+        <div class="cat-illustration"><i class="fa-solid fa-cat"></i></div>
         <p>Contact me<br>Email : rasspixels@gmail.com</p>
         
         <div class="social-icons" style="justify-content: center;">
@@ -549,14 +568,12 @@
 
     <!-- --- CODE SCRIPT DYNAMIQUE --- -->
     <script>
-        // Fonction pour récupérer l'ID d'une vidéo YouTube depuis son lien
         function getYouTubeId(url) {
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             const match = url.match(regExp);
             return (match && match[2].length === 11) ? match[2] : null;
         }
 
-        // Fonction pour charger la visionneuse (Lightbox)
         function openLightbox(type, source) {
             const lightbox = document.getElementById('lightbox');
             const content = document.getElementById('lightbox-content');
@@ -576,19 +593,16 @@
 
         function closeLightbox() {
             document.getElementById('lightbox').style.display = 'none';
-            document.getElementById('lightbox-content').innerHTML = ''; // Arrête la vidéo en fermant
+            document.getElementById('lightbox-content').innerHTML = '';
         }
 
-        // Fermer la lightbox si on clique en dehors de l'image/vidéo
         document.getElementById('lightbox').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeLightbox();
             }
         });
 
-        // Chargement automatique des données du site
         document.addEventListener("DOMContentLoaded", function() {
-            // Lecture du fichier JSON généré par Decap CMS
             fetch('./_data/projects.json')
                 .then(response => {
                     if (!response.ok) {
@@ -599,20 +613,18 @@
                 .then(data => {
                     const projects = data.projects_list || [];
                     
-                    // Si on a des projets
                     if (projects.length > 0) {
                         
-                        // Séparer les projets par catégorie
+                        // Séparation par catégorie (CORRIGÉ : "3d" est désormais entouré de guillemets)
                         const categories = {
                             logo: { slider: document.getElementById('slider-logo'), container: document.getElementById('cat-logo') },
                             poster: { slider: document.getElementById('slider-poster'), container: document.getElementById('cat-poster') },
                             banner: { slider: document.getElementById('slider-banner'), container: document.getElementById('cat-banner') },
                             illustration: { slider: document.getElementById('slider-illustration'), container: document.getElementById('cat-illustration') },
-                            3d: { slider: document.getElementById('slider-3d'), container: document.getElementById('cat-3d') },
+                            "3d": { slider: document.getElementById('slider-3d'), container: document.getElementById('cat-3d') },
                             animation: { slider: document.getElementById('slider-animation'), container: document.getElementById('cat-animation') }
                         };
 
-                        // Compter les projets par catégorie pour savoir lesquelles afficher
                         const counts = { logo: 0, poster: 0, banner: 0, illustration: 0, "3d": 0, animation: 0 };
 
                         projects.forEach(project => {
@@ -620,21 +632,17 @@
                             if (categories[catKey]) {
                                 counts[catKey]++;
                                 
-                                // Création du bloc de projet (Work-item)
                                 const item = document.createElement('div');
                                 item.className = 'work-item';
                                 
-                                // S'il s'agit d'une animation YouTube
                                 if (catKey === 'animation' && project.youtube_link) {
                                     const ytId = getYouTubeId(project.youtube_link);
                                     if (ytId) {
-                                        // On récupère la miniature YouTube automatiquement
                                         item.style.backgroundImage = `url('https://img.youtube.com/vi/${ytId}/hqdefault.jpg')`;
                                         item.innerHTML = `<div class="video-play-btn"><i class="fa-solid fa-play"></i></div>`;
                                         item.onclick = () => openLightbox('video', ytId);
                                     }
                                 } else {
-                                    // Sinon, c'est une image normale
                                     item.style.backgroundImage = `url('${project.image}')`;
                                     item.onclick = () => openLightbox('image', project.image);
                                 }
@@ -643,12 +651,11 @@
                             }
                         });
 
-                        // Afficher uniquement les catégories qui contiennent au moins un projet
                         Object.keys(categories).forEach(key => {
                             if (counts[key] > 0) {
-                                categories[key].container.style.display = 'block'; // On l'affiche
+                                categories[key].container.style.display = 'block';
                             } else {
-                                categories[key].container.style.display = 'none'; // On la cache
+                                categories[key].container.style.display = 'none';
                             }
                         });
                     }
