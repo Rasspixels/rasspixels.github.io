@@ -11,9 +11,12 @@
     
     <style>
         :root {
-            --bg-dark: #090e14; /* Couleur de fond sombre exacte */
-            --bg-card: #131a24; /* Couleur des cartes gris/bleu */
-            --accent-cyan: #00e5ff; /* Ta couleur bleu fluo */
+            /* Couleurs neumorphiques sombres et précises */
+            --bg-dark: #0a0f16;        /* Fond plat */
+            --neu-light: #111a26;      /* Ombre claire (haut-gauche) */
+            --neu-dark: #030508;       /* Ombre sombre (bas-droite) */
+            
+            --accent-cyan: #00e5ff;    /* Bleu néon */
             --text-white: #ffffff;
             --text-grey: #a0aec0;
             --font-title: 'Outfit', sans-serif;
@@ -35,7 +38,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 5%;
+            padding: 25px 5%;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -50,7 +53,7 @@
         .logo i { color: var(--accent-cyan); }
         .logo-cyan { color: var(--accent-cyan); }
         
-        nav { display: flex; gap: 30px; }
+        nav { display: flex; gap: 30px; align-items: center; }
         nav a {
             color: var(--text-white);
             text-decoration: none;
@@ -58,10 +61,19 @@
             transition: color 0.3s;
         }
         nav a:hover { color: var(--accent-cyan); }
+        
+        /* Bouton CV Neumorphique */
         .nav-btn {
-            border: 1px solid #334155;
-            padding: 5px 15px;
+            background: var(--bg-dark);
+            box-shadow: 4px 4px 8px var(--neu-dark), -4px -4px 8px var(--neu-light);
+            padding: 8px 20px;
             border-radius: 20px;
+            border: none;
+            transition: all 0.2s ease;
+        }
+        .nav-btn:hover {
+            box-shadow: inset 3px 3px 6px var(--neu-dark), inset -3px -3px 6px var(--neu-light);
+            color: var(--accent-cyan);
         }
 
         /* --- HERO SECTION --- */
@@ -84,33 +96,34 @@
         .hero-subtitle {
             color: var(--text-grey);
             font-size: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 35px;
         }
         
-        /* Icônes Sociales */
+        /* Icônes Sociales Neumorphiques */
         .social-icons {
             display: flex;
             gap: 15px;
         }
         .social-icons a {
             color: var(--accent-cyan);
-            border: 2px solid var(--accent-cyan);
-            border-radius: 8px;
-            width: 40px;
-            height: 40px;
+            background: var(--bg-dark);
+            box-shadow: 5px 5px 10px var(--neu-dark), -5px -5px 10px var(--neu-light);
+            border-radius: 12px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 20px;
             text-decoration: none;
-            transition: 0.3s;
+            transition: all 0.2s ease;
         }
         .social-icons a:hover {
-            background-color: var(--accent-cyan);
-            color: var(--bg-dark);
+            box-shadow: inset 3px 3px 6px var(--neu-dark), inset -3px -3px 6px var(--neu-light);
+            transform: scale(0.98);
         }
 
-        /* Les 3 images qui se chevauchent */
+        /* Les 3 images de profil chevauchées */
         .hero-images {
             flex: 1;
             position: relative;
@@ -123,10 +136,9 @@
             position: absolute;
             width: 180px;
             height: 350px;
-            border-radius: 20px;
-            background-color: #2a3544; /* Espace pour tes images */
-            border: 3px solid #1a2332;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 24px;
+            background-color: #1e293b;
+            box-shadow: 10px 10px 20px var(--neu-dark), -10px -10px 20px var(--neu-light);
             background-size: cover;
             background-position: center;
         }
@@ -150,59 +162,69 @@
             color: var(--accent-cyan);
             font-family: var(--font-title);
             font-size: 28px;
-            margin: 60px 0 30px 0;
-            text-transform: capitalize;
+            margin: 80px 0 40px 0;
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
         }
 
-        /* --- WHAT I DO --- */
+        /* --- WHAT I DO (Cartes Neumorphiques) --- */
         .what-i-do {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 40px;
             flex-wrap: wrap;
             max-width: 1000px;
             margin: 0 auto;
         }
         .wid-card {
             text-align: center;
+            cursor: pointer;
         }
         .wid-image {
-            width: 160px;
-            height: 160px;
-            border-radius: 16px;
-            border: 2px solid var(--accent-cyan);
-            margin-bottom: 15px;
-            background-color: var(--bg-card);
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+            width: 165px;
+            height: 165px;
+            border-radius: 24px;
+            margin-bottom: 20px;
+            background-color: var(--bg-dark);
+            box-shadow: 8px 8px 16px var(--neu-dark), -8px -8px 16px var(--neu-light);
             background-size: cover;
             background-position: center;
+            transition: all 0.3s ease;
         }
-        .wid-card p { font-size: 14px; color: var(--accent-cyan); }
+        .wid-card:hover .wid-image {
+            box-shadow: inset 5px 5px 10px var(--neu-dark), inset -5px -5px 10px var(--neu-light), 0 0 15px rgba(0, 229, 255, 0.3);
+        }
+        .wid-card p { 
+            font-size: 14px; 
+            color: var(--accent-cyan);
+            font-weight: 500;
+        }
 
-        /* --- LATEST ACHIEVEMENT --- */
+        /* --- LATEST ACHIEVEMENT (Plaques Neumorphiques) --- */
         .achievements-container {
             max-width: 1000px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 40px;
             padding: 0 20px;
         }
         .achievement-card {
-            background-color: var(--bg-card);
-            border-radius: 20px;
-            padding: 30px;
+            background-color: var(--bg-dark);
+            box-shadow: 12px 12px 24px var(--neu-dark), -12px -12px 24px var(--neu-light);
+            border-radius: 28px;
+            padding: 35px;
             display: flex;
-            gap: 30px;
+            gap: 35px;
             align-items: center;
         }
         .achievement-img {
             flex: 1;
             height: 250px;
-            background-color: #2a3544;
-            border-radius: 10px;
+            background-color: #1a2433;
+            border-radius: 16px;
             background-size: cover;
             background-position: center;
+            box-shadow: inset 4px 4px 8px var(--neu-dark), inset -4px -4px 8px var(--neu-light);
         }
         .achievement-text { flex: 1.5; }
         .achievement-text h3 {
@@ -216,137 +238,139 @@
             font-size: 14px;
         }
 
-        /* --- MY WORKS --- */
+        /* --- MY WORKS (Grands Conteneurs Neumorphiques) --- */
         .works-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
             flex-direction: column;
-            gap: 35px;
+            gap: 45px;
         }
         .work-category {
-            border: 1px solid #1e293b;
-            border-radius: 15px;
-            padding: 25px;
-            background-color: rgba(19, 26, 36, 0.5);
+            background-color: var(--bg-dark);
+            box-shadow: 12px 12px 25px var(--neu-dark), -12px -12px 25px var(--neu-light);
+            border-radius: 28px;
+            padding: 30px;
         }
         .work-category h4 {
             color: var(--text-grey);
-            margin-bottom: 15px;
-            font-weight: 500;
-            font-size: 15px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 14px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
         .work-slider {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             overflow-x: auto;
             padding-bottom: 15px;
             scroll-snap-type: x mandatory;
             position: relative;
         }
         
-        /* Style des barres de défilement */
+        /* Barres de défilement neumorphiques enfoncées */
         .work-slider::-webkit-scrollbar { height: 6px; }
-        .work-slider::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
-        .work-slider::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .work-slider::-webkit-scrollbar-track { 
+            background: var(--bg-dark); 
+            box-shadow: inset 2px 2px 5px var(--neu-dark), inset -2px -2px 5px var(--neu-light);
+            border-radius: 10px; 
+        }
+        .work-slider::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
         .work-slider::-webkit-scrollbar-thumb:hover { background: var(--accent-cyan); }
 
         .work-item {
             min-width: 320px;
             height: 200px;
-            background-color: #1e293b;
-            border-radius: 10px;
+            background-color: #161e29;
+            border-radius: 16px;
             scroll-snap-align: start;
             flex-shrink: 0;
             background-size: cover;
             background-position: center;
             position: relative;
-            border: 1px solid #334155;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: inset 3px 3px 6px var(--neu-dark), inset -3px -3px 6px var(--neu-light);
         }
 
-        /* Grand format spécifique pour la catégorie "Banner" */
+        /* Format Bannières larges */
         .banner-slider .work-item {
-            min-width: 100%; /* Les bannières prennent toute la largeur disponible */
+            min-width: 100%;
             height: 220px;
         }
 
-        /* Icône play pour la partie vidéo */
+        /* Bouton Play Vidéo Neumorphique */
         .video-play-btn {
-            background: rgba(0, 229, 255, 0.2);
-            border: 2px solid var(--accent-cyan);
-            color: var(--text-white);
-            width: 50px;
-            height: 50px;
+            background: var(--bg-dark);
+            box-shadow: 4px 4px 8px var(--neu-dark), -4px -4px 8px var(--neu-light);
+            color: var(--accent-cyan);
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
+            font-size: 18px;
+            transition: all 0.2s ease;
+            cursor: pointer;
         }
         .work-item:hover .video-play-btn {
-            transform: scale(1.1);
-            background: rgba(0, 229, 255, 0.5);
+            box-shadow: inset 3px 3px 6px var(--neu-dark), inset -3px -3px 6px var(--neu-light);
+            transform: scale(0.95);
         }
 
-        /* Flèche de défilement "Suivant" sur le dernier élément visible */
+        /* Flèche de défilement Neumorphique */
         .arrow-next {
             position: absolute;
             right: 15px;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(9, 14, 20, 0.8);
+            background: var(--bg-dark);
+            box-shadow: 4px 4px 8px var(--neu-dark), -4px -4px 8px var(--neu-light);
             color: var(--accent-cyan);
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid var(--accent-cyan);
             cursor: pointer;
             z-index: 10;
-            box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
-            transition: 0.3s;
+            transition: all 0.2s ease;
         }
         .arrow-next:hover {
-            background: var(--accent-cyan);
-            color: var(--bg-dark);
+            box-shadow: inset 2px 2px 5px var(--neu-dark), inset -2px -2px 5px var(--neu-light);
         }
 
         /* --- FOOTER / CONTACT --- */
         footer {
             text-align: center;
             padding: 80px 20px 30px 20px;
-            margin-top: 50px;
-            border-top: 1px solid #1a2332;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
         footer h3 {
             color: var(--accent-cyan);
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             font-family: var(--font-title);
-            font-size: 24px;
+            font-size: 26px;
         }
         .cat-illustration {
             width: 150px;
             height: 150px;
-            background-color: #1e293b; /* Remplace par ton image de chat */
+            background-color: var(--bg-dark);
+            box-shadow: 6px 6px 12px var(--neu-dark), -6px -6px 12px var(--neu-light);
             border-radius: 50%;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 30px auto;
             background-size: cover;
-            border: 2px dashed var(--accent-cyan);
         }
-        footer p { margin-bottom: 20px; }
+        footer p { margin-bottom: 25px; }
         .footer-bottom {
-            margin-top: 40px;
+            margin-top: 50px;
             font-size: 12px;
             color: var(--text-grey);
         }
@@ -355,8 +379,8 @@
         @media (max-width: 800px) {
             .hero, .achievement-card { flex-direction: column; text-align: center; }
             .hero-images { margin-top: 50px; height: 300px; }
-            nav { display: none; } /* Cache le menu sur mobile */
-            .work-item { min-width: 260px; height: 160px; }
+            nav { display: none; }
+            .work-item { min-width: 270px; height: 170px; }
         }
     </style>
 </head>
@@ -388,7 +412,6 @@
             </div>
         </div>
         <div class="hero-images">
-            <!-- Emplacements pour tes 3 photos de profil -->
             <div class="hero-img img-1" style="background-image: url('lien_image_1.jpg');"></div>
             <div class="hero-img img-2" style="background-image: url('lien_image_2.jpg');"></div>
             <div class="hero-img img-3" style="background-image: url('lien_image_3.jpg');"></div>
@@ -518,7 +541,6 @@
     <!-- FOOTER -->
     <footer>
         <h3>Do you have a project for us?</h3>
-        <!-- Image de ton petit chat ici -->
         <div class="cat-illustration" style="background-image: url('lien_image_chat.jpg');"></div>
         <p>Contact me<br>Email : rasspixels@gmail.com</p>
         
