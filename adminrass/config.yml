@@ -35,16 +35,21 @@ site_url: https://rasspixels.github.io
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
-# Tes collections de projets pour ton portfolio
+# On enregistre tous les projets dans un seul fichier JSON pour que notre code HTML puisse le lire facilement
 collections:
-  - name: "projects"
-    label: "Mes Projets"
-    folder: "_projects"
-    create: true
-    slug: "{{fields.title}}"
-    fields:
-      - {label: "Titre du projet", name: "title", widget: "string"}
-      - {label: "Catégorie", name: "category", widget: "select", options: ["logo", "poster", "banner", "illustration", "3d", "animation"]}
-      - {label: "Image ou Thumbnail", name: "image", widget: "image", required: false}
-      - {label: "Lien de la vidéo YouTube (si animation)", name: "youtube_link", widget: "string", required: false}
-      - {label: "Description", name: "body", widget: "markdown", required: false}
+  - name: "data"
+    label: "Données du Site"
+    files:
+      - file: "_data/projects.json"
+        name: "projects"
+        label: "Liste des Projets"
+        fields:
+          - name: "projects_list"
+            label: "Projets"
+            widget: "list"
+            fields:
+              - {label: "Titre du projet", name: "title", widget: "string"}
+              - {label: "Catégorie", name: "category", widget: "select", options: ["logo", "poster", "banner", "illustration", "3d", "animation"]}
+              - {label: "Image ou Thumbnail", name: "image", widget: "image", required: false}
+              - {label: "Lien de la vidéo YouTube (si animation)", name: "youtube_link", widget: "string", required: false}
+              - {label: "Description", name: "body", widget: "markdown", required: false}
