@@ -1,0 +1,20 @@
+backend:
+  name: github
+  repo: rasspixels/rasspixels.github.io # Remplace par ton pseudo s'il est différent
+  branch: main
+
+media_folder: "images/uploads" # Où seront stockées tes images de projets
+public_folder: "/images/uploads"
+
+collections:
+  - name: "projects"
+    label: "Mes Projets"
+    folder: "_projects"
+    create: true
+    slug: "{{fields.title}}"
+    fields:
+      - {label: "Titre du projet", name: "title", widget: "string"}
+      - {label: "Catégorie", name: "category", widget: "select", options: ["logo", "poster", "banner", "illustration", "3d", "animation"]}
+      - {label: "Image ou Thumbnail", name: "image", widget: "image", required: false}
+      - {label: "Lien de la vidéo YouTube (si animation)", name: "youtube_link", widget: "string", required: false}
+      - {label: "Description", name: "body", widget: "markdown", required: false}
