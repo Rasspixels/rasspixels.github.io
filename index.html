@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RASS Pixels | Portfolio</title>
-    <!-- Police de caractères (Proche de ton design Framer) -->
+    <!-- Police de caractères -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <!-- Icônes pour les réseaux sociaux et flèches -->
+    <!-- Icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            /* Couleurs neumorphiques sombres et précises */
-            --bg-dark: #0a0f16;        /* Fond plat */
-            --neu-light: #111a26;      /* Ombre claire (haut-gauche) */
-            --neu-dark: #030508;       /* Ombre sombre (bas-droite) */
+            --bg-dark: #0a0f16;        /* Fond plat sombre */
+            --neu-light: #111a26;      /* Relief clair */
+            --neu-dark: #030508;       /* Relief sombre */
             
             --accent-cyan: #00e5ff;    /* Bleu néon */
             --text-white: #ffffff;
@@ -62,7 +61,6 @@
         }
         nav a:hover { color: var(--accent-cyan); }
         
-        /* Bouton CV Neumorphique */
         .nav-btn {
             background: var(--bg-dark);
             box-shadow: 4px 4px 8px var(--neu-dark), -4px -4px 8px var(--neu-light);
@@ -70,6 +68,7 @@
             border-radius: 20px;
             border: none;
             transition: all 0.2s ease;
+            cursor: pointer;
         }
         .nav-btn:hover {
             box-shadow: inset 3px 3px 6px var(--neu-dark), inset -3px -3px 6px var(--neu-light);
@@ -99,7 +98,6 @@
             margin-bottom: 35px;
         }
         
-        /* Icônes Sociales Neumorphiques */
         .social-icons {
             display: flex;
             gap: 15px;
@@ -123,7 +121,7 @@
             transform: scale(0.98);
         }
 
-        /* Les 3 images de profil chevauchées */
+        /* 3 Images de profil */
         .hero-images {
             flex: 1;
             position: relative;
@@ -156,7 +154,7 @@
             padding: 0 20px;
         }
 
-        /* --- TITRES DE SECTIONS --- */
+        /* --- TITRES --- */
         .section-title {
             text-align: center;
             color: var(--accent-cyan);
@@ -166,7 +164,7 @@
             text-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
         }
 
-        /* --- WHAT I DO (Cartes Neumorphiques) --- */
+        /* --- WHAT I DO --- */
         .what-i-do {
             display: flex;
             justify-content: center;
@@ -199,7 +197,7 @@
             font-weight: 500;
         }
 
-        /* --- LATEST ACHIEVEMENT (Plaques Neumorphiques) --- */
+        /* --- LATEST ACHIEVEMENT --- */
         .achievements-container {
             max-width: 1000px;
             margin: 0 auto;
@@ -238,7 +236,7 @@
             font-size: 14px;
         }
 
-        /* --- MY WORKS (Grands Conteneurs Neumorphiques) --- */
+        /* --- MY WORKS --- */
         .works-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -252,6 +250,7 @@
             box-shadow: 12px 12px 25px var(--neu-dark), -12px -12px 25px var(--neu-light);
             border-radius: 28px;
             padding: 30px;
+            display: none; /* Masqué par défaut, s'affichera seulement s'il contient des projets */
         }
         .work-category h4 {
             color: var(--text-grey);
@@ -270,7 +269,6 @@
             position: relative;
         }
         
-        /* Barres de défilement neumorphiques enfoncées */
         .work-slider::-webkit-scrollbar { height: 6px; }
         .work-slider::-webkit-scrollbar-track { 
             background: var(--bg-dark); 
@@ -295,15 +293,20 @@
             align-items: center;
             justify-content: center;
             box-shadow: inset 3px 3px 6px var(--neu-dark), inset -3px -3px 6px var(--neu-light);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .work-item:hover {
+            transform: scale(1.02);
         }
 
-        /* Format Bannières larges */
+        /* Format Bannières */
         .banner-slider .work-item {
             min-width: 100%;
             height: 220px;
         }
 
-        /* Bouton Play Vidéo Neumorphique */
+        /* Bouton Play Vidéo */
         .video-play-btn {
             background: var(--bg-dark);
             box-shadow: 4px 4px 8px var(--neu-dark), -4px -4px 8px var(--neu-light);
@@ -316,37 +319,61 @@
             justify-content: center;
             font-size: 18px;
             transition: all 0.2s ease;
-            cursor: pointer;
-        }
-        .work-item:hover .video-play-btn {
-            box-shadow: inset 3px 3px 6px var(--neu-dark), inset -3px -3px 6px var(--neu-light);
-            transform: scale(0.95);
         }
 
-        /* Flèche de défilement Neumorphique */
-        .arrow-next {
+        /* --- LIGHTBOX (VISIONNEUSE) --- */
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 8, 12, 0.95);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 85%;
+            border-radius: 16px;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
+            overflow: hidden;
+        }
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+        }
+        .lightbox-video {
+            width: 80vw;
+            height: 45vw;
+            max-width: 960px;
+            max-height: 540px;
+            border: none;
+        }
+        .lightbox-close {
             position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 30px;
+            right: 30px;
             background: var(--bg-dark);
             box-shadow: 4px 4px 8px var(--neu-dark), -4px -4px 8px var(--neu-light);
             color: var(--accent-cyan);
-            width: 40px;
-            height: 40px;
+            border: none;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            transition: all 0.2s ease;
+            transition: 0.2s;
         }
-        .arrow-next:hover {
+        .lightbox-close:hover {
             box-shadow: inset 2px 2px 5px var(--neu-dark), inset -2px -2px 5px var(--neu-light);
         }
 
-        /* --- FOOTER / CONTACT --- */
+        /* --- FOOTER --- */
         footer {
             text-align: center;
             padding: 80px 20px 30px 20px;
@@ -357,7 +384,7 @@
             color: var(--accent-cyan);
             margin-bottom: 30px;
             font-family: var(--font-title);
-            font-size: 26px;
+            font-size: 24px;
         }
         .cat-illustration {
             width: 150px;
@@ -375,7 +402,6 @@
             color: var(--text-grey);
         }
 
-        /* Responsive Design */
         @media (max-width: 800px) {
             .hero, .achievement-card { flex-direction: column; text-align: center; }
             .hero-images { margin-top: 50px; height: 300px; }
@@ -412,9 +438,10 @@
             </div>
         </div>
         <div class="hero-images">
-            <div class="hero-img img-1" style="background-image: url('lien_image_1.jpg');"></div>
-            <div class="hero-img img-2" style="background-image: url('lien_image_2.jpg');"></div>
-            <div class="hero-img img-3" style="background-image: url('lien_image_3.jpg');"></div>
+            <!-- Pense à ajouter tes photos de profil ici plus tard dans ton admin ! -->
+            <div class="hero-img img-1" style="background-image: url('images/uploads/profil1.jpg');"></div>
+            <div class="hero-img img-2" style="background-image: url('images/uploads/profil2.jpg');"></div>
+            <div class="hero-img img-3" style="background-image: url('images/uploads/profil3.jpg');"></div>
         </div>
     </section>
 
@@ -427,121 +454,85 @@
     <h2 class="section-title">What i do</h2>
     <section class="what-i-do">
         <div class="wid-card">
-            <div class="wid-image" style="background-image: url('lien_service_1.jpg');"></div>
+            <div class="wid-image" style="background-image: url('images/uploads/service1.jpg');"></div>
             <p>Logo, banner, flyers & more...</p>
         </div>
         <div class="wid-card">
-            <div class="wid-image" style="background-image: url('lien_service_2.jpg');"></div>
+            <div class="wid-image" style="background-image: url('images/uploads/service2.jpg');"></div>
             <p>illustrations, motion design</p>
         </div>
         <div class="wid-card">
-            <div class="wid-image" style="background-image: url('lien_service_3.jpg');"></div>
+            <div class="wid-image" style="background-image: url('images/uploads/service3.jpg');"></div>
             <p>3D animation and modeling</p>
         </div>
     </section>
 
-    <!-- LATEST ACHIEVEMENT -->
+    <!-- LATEST ACHIEVEMENT (Toujours statique pour ton meilleur projet, ou dynamique si besoin) -->
     <h2 class="section-title">latest achievement</h2>
     <section class="achievements-container">
-        <!-- Projet 1 -->
         <div class="achievement-card">
-            <div class="achievement-img" style="background-image: url('lien_projet_1.jpg');"></div>
+            <div class="achievement-img" style="background-image: url('images/uploads/achievement1.jpg');"></div>
             <div class="achievement-text">
-                <h3>Markagenie SAS Website Redesign: Crafting a Modern and Minimalist Online Experience...</h3>
-                <p>Dive into our latest exciting project: the complete redesign of the Markagenie SAS website... I started by analyzing the old site, identifying strengths and areas for improvement...</p>
-            </div>
-        </div>
-        <!-- Projet 2 -->
-        <div class="achievement-card">
-            <div class="achievement-img" style="background-image: url('lien_projet_2.jpg');"></div>
-            <div class="achievement-text">
-                <h3>Nouvelle Identité, Nouvel Élan : Le Branding Créatif de Mana Consulting</h3>
-                <p>Le branding de Mana Consulting ne s'est pas limité à un simple rafraîchissement du logo. J'ai créé un tout nouveau logo, repensé les couleurs et harmonisé la typographie...</p>
+                <h3>Markagenie SAS Website Redesign</h3>
+                <p>Dive into our latest exciting project: the complete redesign of the Markagenie SAS website. Crafting a modern and minimalist experience for users.</p>
             </div>
         </div>
     </section>
 
-    <!-- MY WORKS -->
+    <!-- DYNAMIC WORKS CATEGORIES -->
     <h2 class="section-title">My Works</h2>
     <section class="works-container">
         
         <!-- Catégorie 1 : LOGO -->
-        <div class="work-category">
+        <div class="work-category" id="cat-logo">
             <h4>LOGO & Mascot logo</h4>
-            <div class="work-slider">
-                <div class="work-item" style="background-image: url('logo_g4k.jpg');"></div>
-                <div class="work-item" style="background-image: url('logo_gasikara.jpg');"></div>
-                <div class="work-item" style="background-image: url('logo_autre.jpg');"></div>
-                <div class="arrow-next"><i class="fa-solid fa-chevron-right"></i></div>
-            </div>
+            <div class="work-slider" id="slider-logo"></div>
         </div>
 
         <!-- Catégorie 2 : POSTER -->
-        <div class="work-category">
+        <div class="work-category" id="cat-poster">
             <h4>Poster, roll up, social media Graphics design</h4>
-            <div class="work-slider">
-                <div class="work-item" style="background-image: url('poster_mannol.jpg');"></div>
-                <div class="work-item" style="background-image: url('poster_clash.jpg');"></div>
-                <div class="work-item" style="background-image: url('poster_autre.jpg');"></div>
-                <div class="arrow-next"><i class="fa-solid fa-chevron-right"></i></div>
-            </div>
+            <div class="work-slider" id="slider-poster"></div>
         </div>
 
         <!-- Catégorie 3 : BANNER -->
-        <div class="work-category">
+        <div class="work-category" id="cat-banner">
             <h4>Banner</h4>
-            <div class="work-slider banner-slider">
-                <div class="work-item" style="background-image: url('banner_cycliste.jpg');"></div>
-                <div class="work-item" style="background-image: url('banner_autre.jpg');"></div>
-                <div class="arrow-next"><i class="fa-solid fa-chevron-right"></i></div>
-            </div>
+            <div class="work-slider banner-slider" id="slider-banner"></div>
         </div>
 
         <!-- Catégorie 4 : ILLUSTRATIONS -->
-        <div class="work-category">
+        <div class="work-category" id="cat-illustration">
             <h4>illustrations</h4>
-            <div class="work-slider">
-                <div class="work-item" style="background-image: url('illustration_cat.jpg');"></div>
-                <div class="work-item" style="background-image: url('illustration_girl.jpg');"></div>
-                <div class="work-item" style="background-image: url('illustration_building.jpg');"></div>
-                <div class="arrow-next"><i class="fa-solid fa-chevron-right"></i></div>
-            </div>
+            <div class="work-slider" id="slider-illustration"></div>
         </div>
 
         <!-- Catégorie 5 : 3D MODELING -->
-        <div class="work-category">
+        <div class="work-category" id="cat-3d">
             <h4>3D Modeling</h4>
-            <div class="work-slider">
-                <div class="work-item" style="background-image: url('3d_bottle.jpg');"></div>
-                <div class="work-item" style="background-image: url('3d_room.jpg');"></div>
-                <div class="work-item" style="background-image: url('3d_texture.jpg');"></div>
-                <div class="arrow-next"><i class="fa-solid fa-chevron-right"></i></div>
-            </div>
+            <div class="work-slider" id="slider-3d"></div>
         </div>
 
         <!-- Catégorie 6 : ANIMATIONS / MOTION DESIGN -->
-        <div class="work-category">
+        <div class="work-category" id="cat-animation">
             <h4>Animatios/motion design</h4>
-            <div class="work-slider">
-                <div class="work-item" style="background-image: url('video_moinir_thumbnail.jpg');">
-                    <div class="video-play-btn"><i class="fa-solid fa-play"></i></div>
-                </div>
-                <div class="work-item" style="background-image: url('video_cloud_thumbnail.jpg');">
-                    <div class="video-play-btn"><i class="fa-solid fa-play"></i></div>
-                </div>
-                <div class="work-item" style="background-image: url('video_autre_thumbnail.jpg');">
-                    <div class="video-play-btn"><i class="fa-solid fa-play"></i></div>
-                </div>
-                <div class="arrow-next"><i class="fa-solid fa-chevron-right"></i></div>
-            </div>
+            <div class="work-slider" id="slider-animation"></div>
         </div>
 
     </section>
 
+    <!-- LIGHTBOX (VISIONNEUSE PHOTO & VIDEO) -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="lightbox-content" id="lightbox-content">
+            <!-- Le contenu (image ou iframe) sera injecté ici en JavaScript -->
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer>
         <h3>Do you have a project for us?</h3>
-        <div class="cat-illustration" style="background-image: url('lien_image_chat.jpg');"></div>
+        <div class="cat-illustration" style="background-image: url('images/uploads/chat.jpg');"></div>
         <p>Contact me<br>Email : rasspixels@gmail.com</p>
         
         <div class="social-icons" style="justify-content: center;">
@@ -556,5 +547,116 @@
         </div>
     </footer>
 
+    <!-- --- CODE SCRIPT DYNAMIQUE --- -->
+    <script>
+        // Fonction pour récupérer l'ID d'une vidéo YouTube depuis son lien
+        function getYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        // Fonction pour charger la visionneuse (Lightbox)
+        function openLightbox(type, source) {
+            const lightbox = document.getElementById('lightbox');
+            const content = document.getElementById('lightbox-content');
+            
+            if (type === 'image') {
+                content.innerHTML = `<img src="${source}" class="lightbox-img" alt="Projet">`;
+            } else if (type === 'video') {
+                content.innerHTML = `
+                    <iframe class="lightbox-video" 
+                            src="https://www.youtube.com/embed/${source}?autoplay=1" 
+                            allow="autoplay; encrypted-media" 
+                            allowfullscreen>
+                    </iframe>`;
+            }
+            lightbox.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.getElementById('lightbox-content').innerHTML = ''; // Arrête la vidéo en fermant
+        }
+
+        // Fermer la lightbox si on clique en dehors de l'image/vidéo
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        // Chargement automatique des données du site
+        document.addEventListener("DOMContentLoaded", function() {
+            // Lecture du fichier JSON généré par Decap CMS
+            fetch('./_data/projects.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Aucun projet trouvé.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const projects = data.projects_list || [];
+                    
+                    // Si on a des projets
+                    if (projects.length > 0) {
+                        
+                        // Séparer les projets par catégorie
+                        const categories = {
+                            logo: { slider: document.getElementById('slider-logo'), container: document.getElementById('cat-logo') },
+                            poster: { slider: document.getElementById('slider-poster'), container: document.getElementById('cat-poster') },
+                            banner: { slider: document.getElementById('slider-banner'), container: document.getElementById('cat-banner') },
+                            illustration: { slider: document.getElementById('slider-illustration'), container: document.getElementById('cat-illustration') },
+                            3d: { slider: document.getElementById('slider-3d'), container: document.getElementById('cat-3d') },
+                            animation: { slider: document.getElementById('slider-animation'), container: document.getElementById('cat-animation') }
+                        };
+
+                        // Compter les projets par catégorie pour savoir lesquelles afficher
+                        const counts = { logo: 0, poster: 0, banner: 0, illustration: 0, "3d": 0, animation: 0 };
+
+                        projects.forEach(project => {
+                            const catKey = project.category;
+                            if (categories[catKey]) {
+                                counts[catKey]++;
+                                
+                                // Création du bloc de projet (Work-item)
+                                const item = document.createElement('div');
+                                item.className = 'work-item';
+                                
+                                // S'il s'agit d'une animation YouTube
+                                if (catKey === 'animation' && project.youtube_link) {
+                                    const ytId = getYouTubeId(project.youtube_link);
+                                    if (ytId) {
+                                        // On récupère la miniature YouTube automatiquement
+                                        item.style.backgroundImage = `url('https://img.youtube.com/vi/${ytId}/hqdefault.jpg')`;
+                                        item.innerHTML = `<div class="video-play-btn"><i class="fa-solid fa-play"></i></div>`;
+                                        item.onclick = () => openLightbox('video', ytId);
+                                    }
+                                } else {
+                                    // Sinon, c'est une image normale
+                                    item.style.backgroundImage = `url('${project.image}')`;
+                                    item.onclick = () => openLightbox('image', project.image);
+                                }
+                                
+                                categories[catKey].slider.appendChild(item);
+                            }
+                        });
+
+                        // Afficher uniquement les catégories qui contiennent au moins un projet
+                        Object.keys(categories).forEach(key => {
+                            if (counts[key] > 0) {
+                                categories[key].container.style.display = 'block'; // On l'affiche
+                            } else {
+                                categories[key].container.style.display = 'none'; // On la cache
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.log("Mode démo ou aucun fichier de projet disponible pour le moment.", error);
+                });
+        });
+    </script>
 </body>
 </html>
