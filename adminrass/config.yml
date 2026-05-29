@@ -35,11 +35,11 @@ site_url: https://rasspixels.github.io
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
-# On enregistre tous les projets dans un seul fichier JSON pour que notre code HTML puisse le lire facilement
 collections:
   - name: "data"
     label: "Données du Site"
     files:
+      # COLLECTION 1 : Les projets (logos, posters, etc.)
       - file: "_data/projects.json"
         name: "projects"
         label: "Liste des Projets"
@@ -49,7 +49,22 @@ collections:
             widget: "list"
             fields:
               - {label: "Titre du projet", name: "title", widget: "string"}
+              - {label: "Ordre d'affichage (Chiffre : 1 pour le premier, 2 pour le deuxième, etc.)", name: "order", widget: "number", value_type: "int", default: 1, required: false}
               - {label: "Catégorie", name: "category", widget: "select", options: ["logo", "poster", "banner", "illustration", "3d", "animation"]}
               - {label: "Image ou Thumbnail", name: "image", widget: "image", required: false}
               - {label: "Lien de la vidéo YouTube (si animation)", name: "youtube_link", widget: "string", required: false}
               - {label: "Description", name: "body", widget: "markdown", required: false}
+              
+      # COLLECTION 2 : Les "Latest Achievements" (Dernières Réalisations importantes)
+      - file: "_data/achievements.json"
+        name: "achievements"
+        label: "Dernières Réalisations (Latest Achievements)"
+        fields:
+          - name: "achievements_list"
+            label: "Réalisations"
+            widget: "list"
+            fields:
+              - {label: "Titre de la réalisation", name: "title", widget: "string"}
+              - {label: "Ordre d'affichage (Chiffre : 1, 2...)", name: "order", widget: "number", value_type: "int", default: 1, required: false}
+              - {label: "Grande image", name: "image", widget: "image", required: false}
+              - {label: "Description/Texte détaillé", name: "description", widget: "text"}
