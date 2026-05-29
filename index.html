@@ -122,7 +122,7 @@
             transform: scale(0.98);
         }
 
-        /* 3 Images de profil (Fonds neumorphiques de secours) */
+        /* 3 Images de profil */
         .hero-images {
             flex: 1;
             position: relative;
@@ -143,7 +143,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.05);
             font-size: 30px;
         }
         .img-1 { transform: rotate(-10deg) translateX(-80px); z-index: 1; }
@@ -196,7 +196,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.05);
             font-size: 30px;
         }
         .wid-card:hover .wid-image {
@@ -208,7 +208,7 @@
             font-weight: 500;
         }
 
-        /* --- LATEST ACHIEVEMENT --- */
+        /* --- LATEST ACHIEVEMENT (Désormais dynamique !) --- */
         .achievements-container {
             max-width: 1000px;
             margin: 0 auto;
@@ -239,6 +239,11 @@
             justify-content: center;
             color: rgba(255,255,255,0.05);
             font-size: 40px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .achievement-img:hover {
+            transform: scale(1.02);
         }
         .achievement-text { flex: 1.5; }
         .achievement-text h3 {
@@ -459,7 +464,6 @@
             </div>
         </div>
         <div class="hero-images">
-            <!-- Emplacements neumorphiques -->
             <div class="hero-img img-1"><i class="fa-regular fa-image"></i></div>
             <div class="hero-img img-2"><i class="fa-regular fa-image"></i></div>
             <div class="hero-img img-3"><i class="fa-regular fa-image"></i></div>
@@ -488,16 +492,10 @@
         </div>
     </section>
 
-    <!-- LATEST ACHIEVEMENT -->
+    <!-- LATEST ACHIEVEMENT (Désormais dynamique !) -->
     <h2 class="section-title">latest achievement</h2>
-    <section class="achievements-container">
-        <div class="achievement-card">
-            <div class="achievement-img"><i class="fa-solid fa-trophy"></i></div>
-            <div class="achievement-text">
-                <h3>Markagenie SAS Website Redesign</h3>
-                <p>Dive into our latest exciting project: the complete redesign of the Markagenie SAS website. Crafting a modern and minimalist experience for users.</p>
-            </div>
-        </div>
+    <section class="achievements-container" id="achievements-container">
+        <!-- Rempli dynamiquement depuis le JSON -->
     </section>
 
     <!-- DYNAMIC WORKS CATEGORIES -->
@@ -603,6 +601,60 @@
         });
 
         document.addEventListener("DOMContentLoaded", function() {
+            // 1. CHARGEMENT ET RENDU DES DERNIÈRES RÉALISATIONS (Latest Achievements)
+            fetch('./_data/achievements.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Aucune réalisation trouvée.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const achievements = data.achievements_list || [];
+                    const container = document.getElementById('achievements-container');
+                    
+                    if (achievements.length > 0) {
+                        container.innerHTML = ''; // Vide le contenu d'exemple statique
+                        
+                        // TRI CRÉATIF DES RÉALISATIONS (par ordre d'affichage croissant)
+                        achievements.sort((a, b) => {
+                            const orderA = parseInt(a.order) || 999;
+                            const orderB = parseInt(b.order) || 999;
+                            return orderA - orderB;
+                        });
+
+                        achievements.forEach(ach => {
+                            const card = document.createElement('div');
+                            card.className = 'achievement-card';
+                            card.innerHTML = `
+                                <div class="achievement-img" style="background-image: url('${ach.image}');"></div>
+                                <div class="achievement-text">
+                                    <h3>${ach.title}</h3>
+                                    <p>${ach.description}</p>
+                                </div>
+                            `;
+                            // Clic sur l'image ouvre la visionneuse
+                            card.querySelector('.achievement-img').onclick = () => openLightbox('image', ach.image);
+                            container.appendChild(card);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.log("Données de réalisation statiques ou non disponibles.", error);
+                    // Rendu de secours statique si le fichier n'est pas encore créé
+                    const container = document.getElementById('achievements-container');
+                    container.innerHTML = `
+                        <div class="achievement-card">
+                            <div class="achievement-img"><i class="fa-solid fa-trophy"></i></div>
+                            <div class="achievement-text">
+                                <h3>Markagenie SAS Website Redesign</h3>
+                                <p>Pour configurer cette partie, allez dans votre panneau d'administration pour ajouter votre première réalisation (Latest Achievement).</p>
+                            </div>
+                        </div>
+                    `;
+                });
+
+            // 2. CHARGEMENT ET RENDU DES PROJETS (My Works)
             fetch('./_data/projects.json')
                 .then(response => {
                     if (!response.ok) {
@@ -615,7 +667,7 @@
                     
                     if (projects.length > 0) {
                         
-                        // Séparation par catégorie (CORRIGÉ : "3d" est désormais entouré de guillemets)
+                        // Séparation par catégorie
                         const categories = {
                             logo: { slider: document.getElementById('slider-logo'), container: document.getElementById('cat-logo') },
                             poster: { slider: document.getElementById('slider-poster'), container: document.getElementById('cat-poster') },
@@ -626,6 +678,13 @@
                         };
 
                         const counts = { logo: 0, poster: 0, banner: 0, illustration: 0, "3d": 0, animation: 0 };
+
+                        // TRI CRÉATIF DES PROJETS (par ordre d'affichage croissant)
+                        projects.sort((a, b) => {
+                            const orderA = parseInt(a.order) || 999;
+                            const orderB = parseInt(b.order) || 999;
+                            return orderA - orderB;
+                        });
 
                         projects.forEach(project => {
                             const catKey = project.category;
@@ -661,7 +720,7 @@
                     }
                 })
                 .catch(error => {
-                    console.log("Mode démo ou aucun fichier de projet disponible pour le moment.", error);
+                    console.log("Aucun fichier de projet disponible pour le moment.", error);
                 });
         });
     </script>
