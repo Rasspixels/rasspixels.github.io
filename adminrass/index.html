@@ -4,11 +4,61 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RASS Pixels - Administration</title>
-  <!-- Cette ligne indique à Decap CMS de chercher le config dans ton dossier personnalisé adminrass -->
+  <!-- Lien indispensable pour ton dossier de configuration personnalisé -->
   <link href="/adminrass/config.yml" type="text/yaml" rel="cms-config-url" />
+  <style>
+    /* Injection globale de secours pour rendre l'admin plus moderne et sombre */
+    body {
+      background-color: #0a0f16 !important;
+      color: #ffffff !important;
+    }
+    /* Styles pour surcharger l'interface par défaut de Decap CMS (Thème Sombre & Cyan) */
+    #nc-root {
+      background-color: #0a0f16 !important;
+    }
+    #nc-root * {
+      border-color: #1e293b !important;
+    }
+    /* Surcharge des barres latérales et en-têtes */
+    .nc-app-sidebar-container, 
+    .nc-app-header-container,
+    header, aside, [class*="SidebarContainer"] {
+      background-color: #0b131f !important;
+      box-shadow: 4px 4px 10px #030508 !important;
+    }
+    /* Textes de l'interface */
+    p, span, h1, h2, h3, h4, label {
+      color: #ffffff !important;
+    }
+    /* Accentuation cyan */
+    .nc-app-sidebar-link-active, 
+    a[class*="StyledNavLink-active"],
+    [class*="active"] {
+      color: #00e5ff !important;
+      border-left-color: #00e5ff !important;
+      font-weight: bold !important;
+    }
+    /* Saisie et formulaires */
+    input, textarea, select, [class*="ControlContainer"] {
+      background-color: #111a26 !important;
+      color: #ffffff !important;
+      border-radius: 8px !important;
+    }
+    /* Boutons de commande */
+    button, [class*="Button"] {
+      background-color: #0a0f16 !important;
+      color: #00e5ff !important;
+      border: 1px solid #00e5ff !important;
+      box-shadow: 3px 3px 6px #030508, -3px -3px 6px #111a26 !important;
+      transition: all 0.2s ease !important;
+    }
+    button:hover, [class*="Button"]:hover {
+      box-shadow: inset 2px 2px 5px #030508, inset -2px -2px 5px #111a26 !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Inclure le script du CMS Decap -->
+  <!-- Inclure le script officiel du CMS Decap -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
