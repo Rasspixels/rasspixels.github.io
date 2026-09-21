@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administration | Gestion du Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --bg-color: #0d0f12;
+            --card-bg: #161a20;
+            --accent: #ff4757;
+            --accent-hover: #ff6b81;
+            --text-main: #f1f2f6;
+            --text-muted: #a4b0be;
+            --border-color: #2f3542;
+            --success: #2ed573;
+            --radius: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-main);
+            padding: 2rem 1.5rem;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+        }
+
+        a.back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        a.back-link:hover {
+            color: var(--accent);
+        }
+
+        .box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .box h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .form-group {
+            margin-bottom: 1.3rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--text-muted);
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: #0d0f12;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        button.btn {
+            width: 100%;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 0.9rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button.btn:hover {
+            background: var(--accent-hover);
+        }
+
+        button.btn:disabled {
+            background: var(--border-color);
+            cursor: not-allowed;
+        }
+
+        #feedback {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            padding: 0.8rem;
+            border-radius: 6px;
+            display: none;
+        }
+
+        #feedback.success {
+            display: block;
+            background: rgba(46, 213, 115, 0.15);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        #feedback.error {
+            display: block;
+            background: rgba(255, 71, 87, 0.15);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Tableau de bord Portfolio</h1>
+            <a href="index.html" class="back-link">&larr; Retour au site public</a>
+        </header>
+
+        <!-- Étape 1 : Connexion GitHub -->
+        <section class="box">
+            <h2>1. Configuration GitHub (Sauvegardée localement)</h2>
+            <div class="row">
+                <div class="form-group">
+                    <label for="gh-owner">Pseudo GitHub (Owner)</label>
+                    <input type="text" id="gh-owner" placeholder="ex: ton-pseudo" />
+                </div>
+                <div class="form-group">
+                    <label for="gh-repo">Nom du Répertoire (Repo)</label>
+                    <input type="text" id="gh-repo" placeholder="ex: mon-portfolio" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="gh-token">GitHub Personal Access Token (PAT)</label>
+                <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
+            </div>
+            <button type="button" class="btn" id="save-config-btn" style="background: #2f3542;">Enregistrer la
+                configuration</button>
+        </section>
+
+        <!-- Étape 2 : Ajout du Projet -->
+        <section class="box">
+            <h2>2. Ajouter un nouveau travail</h2>
+            <form id="add-project-form">
+                <div class="form-group">
+                    <label for="proj-title">Titre du Projet *</label>
+                    <input type="text" id="proj-title" placeholder="ex: Refonte Identité Café Botanique" required />
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label for="proj-category">Catégorie * (nouvelle ou existante)</label>
+                        <input type="text" id="proj-category" placeholder="ex: Branding, 3D, UI/UX..." required />
+                    </div>
+                    <div class="form-group">
+                        <label for="proj-date">Date de réalisation *</label>
+                        <input type="date" id="proj-date" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="proj-image">URL de l'image ou maquette *</label>
+                    <input type="url" id="proj-image" placeholder="https://... ou images/mon-affiche.jpg" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="proj-desc">Description courte</label>
+                    <textarea id="proj-desc" placeholder="Explication du brief ou des choix créatifs..."></textarea>
+                </div>
+
+                <button type="submit" class="btn" id="submit-btn">Publier le projet sur GitHub</button>
+                <div id="feedback"></div>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        const ownerInput = document.getElementById('gh-owner');
+        const repoInput = document.getElementById('gh-repo');
+        const tokenInput = document.getElementById('gh-token');
+        const saveConfigBtn = document.getElementById('save-config-btn');
+        const form = document.getElementById('add-project-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const feedback = document.getElementById('feedback');
+        const dateInput = document.getElementById('proj-date');
+
+        // Définir la date du jour par défaut
+        dateInput.value = new Date().toISOString().split('T')[0];
+
+        // Charger la configuration enregistrée dans le navigateur
+        ownerInput.value = localStorage.getItem('gh_owner') || '';
+        repoInput.value = localStorage.getItem('gh_repo') || '';
+        tokenInput.value = localStorage.getItem('gh_token') || '';
+
+        saveConfigBtn.addEventListener('click', () => {
+            localStorage.setItem('gh_owner', ownerInput.value.trim());
+            localStorage.setItem('gh_repo', repoInput.value.trim());
+            localStorage.setItem('gh_token', tokenInput.value.trim());
+            showFeedback('Paramètres GitHub enregistrés localement.', 'success');
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const owner = ownerInput.value.trim();
+            const repo = repoInput.value.trim();
+            const token = tokenInput.value.trim();
+
+            if (!owner || !repo || !token) {
+                showFeedback('Veuillez remplir les informations GitHub (Étape 1).', 'error');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Publication en cours...';
+
+            try {
+                const filePath = 'projects.json';
+                const getUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`;
+
+                // 1. Récupérer le fichier projects.json existant sur GitHub
+                const getRes = await fetch(getUrl, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (!getRes.ok) {
+                    throw new Error('Impossible de lire projects.json sur votre dépôt GitHub. Vérifiez le token et le repo.');
+                }
+
+                const fileData = await getRes.json();
+                const currentSha = fileData.sha;
+                const currentContentText = decodeURIComponent(escape(atob(fileData.content)));
+                const projectsList = JSON.parse(currentContentText);
+
+                // 2. Créer le nouvel élément
+                const newProject = {
+                    id: 'proj-' + Date.now(),
+                    title: document.getElementById('proj-title').value.trim(),
+                    category: document.getElementById('proj-category').value.trim(),
+                    image: document.getElementById('proj-image').value.trim(),
+                    date: dateInput.value,
+                    description: document.getElementById('proj-desc').value.trim()
+                };
+
+                // Ajouter le nouveau projet
+                projectsList.push(newProject);
+
+                // 3. Renvoyer le fichier mis à jour vers GitHub via l'API
+                const updatedJsonString = JSON.stringify(projectsList, null, 2);
+                const encodedContent = btoa(unescape(encodeURIComponent(updatedJsonString)));
+
+                const putRes = await fetch(getUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `Ajout du projet : ${newProject.title}`,
+                        content: encodedContent,
+                        sha: currentSha
+                    })
+                });
+
+                if (!putRes.ok) {
+                    throw new Error('Échec de la mise à jour sur GitHub.');
+                }
+
+                showFeedback(`Projet "${newProject.title}" publié avec succès ! Votre site se met à jour.`, 'success');
+                form.reset();
+                dateInput.value = new Date().toISOString().split('T')[0];
+            } catch (err) {
+                showFeedback(err.message, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Publier le projet sur GitHub';
+            }
+        });
+
+        function showFeedback(text, type) {
+            feedback.textContent = text;
+            feedback.className = type;
+        }
+    </script>
+</body>
+
+</html>
