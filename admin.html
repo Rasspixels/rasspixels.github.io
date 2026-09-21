@@ -14,8 +14,8 @@
         :root {
             --bg-color: #0d0f12;
             --card-bg: #161a20;
-            --accent: #ff4757;
-            --accent-hover: #ff6b81;
+            --accent: #f8ab17;
+            --accent-hover: #fab935;
             --text-main: #f1f2f6;
             --text-muted: #a4b0be;
             --border-color: #2f3542;
@@ -91,7 +91,7 @@
 
         .mode-btn.active {
             background: var(--accent);
-            color: #fff;
+            color: #141517;
         }
 
         .box {
@@ -149,10 +149,24 @@
             gap: 1rem;
         }
 
+        .image-helper-box {
+            background: #0d0f12;
+            border: 1px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .image-helper-box p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
         button.btn {
             width: 100%;
             background: var(--accent);
-            color: #fff;
+            color: #141517;
             border: none;
             padding: 0.9rem;
             font-size: 1rem;
@@ -169,6 +183,7 @@
 
         button.btn-secondary {
             background: #2f3542;
+            color: #fff;
             margin-top: 0.5rem;
         }
 
@@ -194,8 +209,8 @@
         #feedback.error {
             display: block;
             background: rgba(255, 71, 87, 0.15);
-            color: var(--accent);
-            border: 1px solid var(--accent);
+            color: #ff4757;
+            border: 1px solid #ff4757;
         }
 
         .hidden {
@@ -217,51 +232,49 @@
             <button type="button" class="mode-btn" id="btn-mode-github">Mode GitHub API (En ligne)</button>
         </div>
 
-        <!-- Configuration GitHub (visible seulement en mode GitHub) -->
+        <!-- Configuration GitHub -->
         <section class="box hidden" id="section-github-config">
             <h2>Configuration GitHub</h2>
             <div class="row">
                 <div class="form-group">
                     <label for="gh-owner">Pseudo GitHub (Owner)</label>
-                    <input type="text" id="gh-owner" placeholder="ex: ton-pseudo" />
+                    <input type="text" id="gh-owner" placeholder="ex: rasspixels" />
                 </div>
                 <div class="form-group">
                     <label for="gh-repo">Nom du Répertoire (Repo)</label>
-                    <input type="text" id="gh-repo" placeholder="ex: mon-portfolio" />
+                    <input type="text" id="gh-repo" placeholder="ex: rasspixels.github.io" />
                 </div>
             </div>
             <div class="form-group">
                 <label for="gh-token">GitHub Personal Access Token (PAT)</label>
                 <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
             </div>
-            <button type="button" class="btn btn-secondary" id="save-config-btn">Sauvegarder les clés dans le
-                navigateur</button>
+            <button type="button" class="btn btn-secondary" id="save-config-btn">Sauvegarder les clés</button>
         </section>
 
-        <!-- Source de données locale (visible en mode local) -->
+        <!-- Source de données locale -->
         <section class="box" id="section-local-config">
             <h2>Source locale (Fichier projects.json)</h2>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-                Charge ton fichier <code>projects.json</code> actuel depuis ton disque dur pour lui ajouter un nouvel
-                élément.
+                Sélectionne ton <code>projects.json</code> local actuel pour y insérer ce nouveau projet :
             </p>
             <input type="file" id="local-file-input" accept=".json" style="margin-bottom: 1rem;" />
             <div id="local-loaded-status" style="font-size: 0.85rem; color: var(--success); font-weight: 600;"></div>
         </section>
 
-        <!-- Formulaire d'ajout de projet -->
+        <!-- Formulaire d'ajout -->
         <section class="box">
-            <h2>Ajouter un projet</h2>
+            <h2>Ajouter une création au portfolio</h2>
             <form id="add-project-form">
                 <div class="form-group">
                     <label for="proj-title">Titre du Projet *</label>
-                    <input type="text" id="proj-title" placeholder="ex: Refonte Branding Studio K" required />
+                    <input type="text" id="proj-title" placeholder="ex: Refonte Branding Studio Horizon" required />
                 </div>
 
                 <div class="row">
                     <div class="form-group">
-                        <label for="proj-category">Catégorie * (nouvelle ou existante)</label>
-                        <input type="text" id="proj-category" placeholder="ex: Branding, 3D, Packaging" required />
+                        <label for="proj-category">Catégorie * (ex: Graphic Design, Photographer, UI/UX...)</label>
+                        <input type="text" id="proj-category" placeholder="Graphic Design" required />
                     </div>
                     <div class="form-group">
                         <label for="proj-date">Date de réalisation *</label>
@@ -269,15 +282,25 @@
                     </div>
                 </div>
 
+                <!-- Assistant de sélection d'image -->
                 <div class="form-group">
-                    <label for="proj-image">Chemin ou URL de l'image *</label>
-                    <input type="text" id="proj-image" placeholder="images/mon-projet.jpg ou https://..." required />
+                    <label>Source de l'image *</label>
+                    <div class="image-helper-box">
+                        <p><strong>Option A :</strong> Choisis un fichier sur ton PC pour insérer son nom
+                            automatiquement :</p>
+                        <input type="file" id="image-picker" accept="image/*" />
+                    </div>
+
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.4rem;">
+                        <strong>Option B :</strong> Ou écris directement l'URL web ou le chemin local :
+                    </p>
+                    <input type="text" id="proj-image" placeholder="images/mon-image.jpg ou https://..." required />
                 </div>
 
                 <div class="form-group">
                     <label for="proj-desc">Description courte</label>
                     <textarea id="proj-desc"
-                        placeholder="Contexte, logiciel utilisé (Illustrator, Photoshop, Figma)..."></textarea>
+                        placeholder="Direction artistique, logiciels utilisés (Illustrator, Photoshop)..."></textarea>
                 </div>
 
                 <button type="submit" class="btn" id="submit-btn">Télécharger le projects.json à jour</button>
@@ -294,9 +317,10 @@
         const btnModeGithub = document.getElementById('btn-mode-github');
         const sectionGithubConfig = document.getElementById('section-github-config');
         const sectionLocalConfig = document.getElementById('section-local-config');
-
         const localFileInput = document.getElementById('local-file-input');
         const localLoadedStatus = document.getElementById('local-loaded-status');
+        const imagePicker = document.getElementById('image-picker');
+        const projImageInput = document.getElementById('proj-image');
 
         const form = document.getElementById('add-project-form');
         const submitBtn = document.getElementById('submit-btn');
@@ -314,7 +338,16 @@
         repoInput.value = localStorage.getItem('gh_repo') || '';
         tokenInput.value = localStorage.getItem('gh_token') || '';
 
-        // Gestion du basculement de mode
+        // Remplissage automatique du champ image lors de la sélection d'un fichier local
+        imagePicker.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                projImageInput.value = 'images/' + file.name;
+                showFeedback(`Chemin configuré : images/${file.name}. N'oublie pas de glisser ce fichier dans ton dossier "images/".`, 'success');
+            }
+        });
+
+        // Basculer entre mode local et en ligne
         btnModeLocal.addEventListener('click', () => {
             activeMode = 'local';
             btnModeLocal.classList.add('active');
@@ -337,10 +370,9 @@
             localStorage.setItem('gh_owner', ownerInput.value.trim());
             localStorage.setItem('gh_repo', repoInput.value.trim());
             localStorage.setItem('gh_token', tokenInput.value.trim());
-            showFeedback('Paramètres GitHub enregistrés localement.', 'success');
+            showFeedback('Identifiants GitHub sauvegardés localement.', 'success');
         });
 
-        // Chargement du fichier JSON local via drag/select
         localFileInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (!file) return;
@@ -349,9 +381,9 @@
             reader.onload = (evt) => {
                 try {
                     localProjects = JSON.parse(evt.target.result);
-                    localLoadedStatus.textContent = `✓ Fichier chargé avec succès (${localProjects.length} projets existants).`;
+                    localLoadedStatus.textContent = `✓ Fichier chargé : ${localProjects.length} projets actuels détectés.`;
                 } catch (err) {
-                    showFeedback('Erreur lors de la lecture du fichier JSON.', 'error');
+                    showFeedback('Le fichier sélectionné n\'est pas un JSON valide.', 'error');
                 }
             };
             reader.readAsText(file);
@@ -364,39 +396,38 @@
                 id: 'proj-' + Date.now(),
                 title: document.getElementById('proj-title').value.trim(),
                 category: document.getElementById('proj-category').value.trim(),
-                image: document.getElementById('proj-image').value.trim(),
+                image: projImageInput.value.trim(),
                 date: dateInput.value,
                 description: document.getElementById('proj-desc').value.trim()
             };
 
             if (activeMode === 'local') {
-                // En mode local : on ajoute au tableau et on déclenche le téléchargement
                 localProjects.push(newProject);
-                const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(localProjects, null, 2));
-                const downloadAnchor = document.createElement('a');
-                downloadAnchor.setAttribute('href', dataStr);
-                downloadAnchor.setAttribute('download', 'projects.json');
-                document.body.appendChild(downloadAnchor);
-                downloadAnchor.click();
-                downloadAnchor.remove();
+                const jsonContent = JSON.stringify(localProjects, null, 2);
+                const blob = new Blob([jsonContent], { type: 'application/json' });
+                const downloadLink = document.createElement('a');
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.download = 'projects.json';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                downloadLink.remove();
 
-                showFeedback(`Projet "${newProject.title}" ajouté ! Remplace ton ancien projects.json par celui téléchargé.`, 'success');
+                showFeedback(`Projet "${newProject.title}" ajouté ! Remplace ton ancien "projects.json" avec celui téléchargé.`, 'success');
                 form.reset();
                 dateInput.value = new Date().toISOString().split('T')[0];
                 localLoadedStatus.textContent = `✓ Base à jour (${localProjects.length} projets).`;
             } else {
-                // En mode GitHub API
                 const owner = ownerInput.value.trim();
                 const repo = repoInput.value.trim();
                 const token = tokenInput.value.trim();
 
                 if (!owner || !repo || !token) {
-                    showFeedback('Veuillez renseigner vos identifiants GitHub.', 'error');
+                    showFeedback('Veuillez remplir les informations GitHub (Pseudo, Répertoire, Token).', 'error');
                     return;
                 }
 
                 submitBtn.disabled = true;
-                submitBtn.textContent = 'Envoi sur GitHub...';
+                submitBtn.textContent = 'Synchronisation GitHub...';
 
                 try {
                     const filePath = 'projects.json';
@@ -409,7 +440,7 @@
                         }
                     });
 
-                    if (!getRes.ok) throw new Error('Impossible de trouver projects.json sur le dépôt.');
+                    if (!getRes.ok) throw new Error('Impossible d\'accéder à projects.json sur votre GitHub.');
 
                     const fileData = await getRes.json();
                     const list = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
@@ -431,9 +462,9 @@
                         })
                     });
 
-                    if (!putRes.ok) throw new Error('Échec de la sauvegarde sur GitHub.');
+                    if (!putRes.ok) throw new Error('Erreur lors de l\'envoi vers GitHub.');
 
-                    showFeedback(`Projet "${newProject.title}" synchronisé sur GitHub !`, 'success');
+                    showFeedback(`Projet "${newProject.title}" synchronisé avec succès sur GitHub !`, 'success');
                     form.reset();
                     dateInput.value = new Date().toISOString().split('T')[0];
                 } catch (err) {
