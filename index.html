@@ -13,14 +13,14 @@
 
     <style>
         /* ========================================================
-       PALETTE FRAMER DARK - RASS PIXELS
+       PALETTE FRAMER DARK - BLEU CYAN ÉLECTRIQUE (#38c7f8)
        ======================================================== */
         :root {
             --bg: #090a0c;
             --card-bg: #121418;
             --card-hover: #181b22;
-            --accent: #0066ff;
-            --accent-glow: rgba(0, 102, 255, 0.25);
+            --accent: #38c7f8;
+            --accent-glow: rgba(56, 199, 248, 0.28);
             --text: #f4f5f8;
             --text-muted: #8b919e;
             --border: #22252e;
@@ -70,7 +70,6 @@
             padding-bottom: 6rem;
         }
 
-        /* En-tête statut */
         .top-meta {
             display: flex;
             justify-content: space-between;
@@ -94,7 +93,7 @@
             background: var(--accent);
             border-radius: 50%;
             display: inline-block;
-            box-shadow: 0 0 10px var(--accent);
+            box-shadow: 0 0 12px var(--accent);
         }
 
         .admin-shortcut {
@@ -154,15 +153,15 @@
         .badge-pill {
             display: inline-block;
             background: var(--accent);
-            color: #fff;
-            font-weight: 700;
+            color: #090a0c;
+            font-weight: 800;
             font-size: 0.85rem;
             padding: 0.35rem 1rem;
             border-radius: var(--radius-full);
             margin-top: 0.5rem;
             margin-bottom: -0.5rem;
             transform: rotate(-3deg);
-            box-shadow: 0 4px 15px var(--accent-glow);
+            box-shadow: 0 4px 20px var(--accent-glow);
         }
 
         .doodle-icon {
@@ -274,7 +273,7 @@
             color: var(--text-muted);
         }
 
-        /* ABOUT SECTION */
+        /* SECTION ABOUT */
         .section-header {
             display: flex;
             align-items: center;
@@ -458,9 +457,9 @@
         }
 
         .skill-tag.accent {
-            background: rgba(0, 102, 255, 0.12);
+            background: rgba(56, 199, 248, 0.15);
             border-color: var(--accent);
-            color: #fff;
+            color: var(--accent);
         }
 
         .experience-list {
@@ -502,7 +501,7 @@
 
         .toc-huge-title .highlight {
             background: var(--accent);
-            color: #fff;
+            color: #090a0c;
             padding: 0 0.5rem;
             border-radius: var(--radius-sm);
         }
@@ -591,9 +590,10 @@
         .filter-chip:hover,
         .filter-chip.active {
             background: var(--accent);
-            color: #fff;
+            color: #090a0c;
+            font-weight: 700;
             border-color: var(--accent);
-            box-shadow: 0 4px 12px var(--accent-glow);
+            box-shadow: 0 4px 16px var(--accent-glow);
         }
 
         /* GALERIE */
@@ -645,9 +645,9 @@
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
-            background: rgba(0, 102, 255, 0.15);
-            color: #70aaff;
-            border: 1px solid rgba(0, 102, 255, 0.3);
+            background: rgba(56, 199, 248, 0.15);
+            color: var(--accent);
+            border: 1px solid rgba(56, 199, 248, 0.3);
             padding: 0.2rem 0.6rem;
             border-radius: var(--radius-full);
         }
@@ -810,7 +810,6 @@
             <a href="admin.html" class="admin-shortcut">⚙ Espace Gestion</a>
         </header>
 
-        <!-- HERO SECTION -->
         <section class="hero-section">
             <div class="hero-title-group">
                 <svg class="doodle-icon doodle-screen" viewBox="0 0 24 24" fill="none" stroke="#f4f5f8"
@@ -846,7 +845,6 @@
             </div>
         </section>
 
-        <!-- SOUS-BARRE HERO -->
         <div class="hero-sub-bar">
             <div class="profile-tag">
                 <span class="arrow-circle">&gt;</span>
@@ -857,7 +855,6 @@
             </div>
         </div>
 
-        <!-- SECTION ABOUT -->
         <div class="section-header">
             <span>About Me</span>
             <span class="arrow-circle">&gt;</span>
@@ -939,7 +936,6 @@
             </div>
         </section>
 
-        <!-- SECTION TABLE OF CONTENT / CRAFTS -->
         <section class="toc-section">
             <div class="section-header">
                 <span>Crafts & Specialities</span>
@@ -950,7 +946,6 @@
                 TABLE <span class="highlight">OF</span> CONTENT.
             </h2>
 
-            <!-- 4 Piliers réels de Rass Pixels -->
             <div class="toc-cards-grid">
                 <div class="toc-card" data-category="Graphic Design">
                     <div class="toc-card-icon">
@@ -999,24 +994,20 @@
                 </div>
             </div>
 
-            <!-- Filtres dynamiques déduits de projects.json -->
             <div class="dynamic-filters" id="dynamic-filters-container"></div>
         </section>
 
-        <!-- GALERIE DES PROJETS DYNAMIQUES -->
         <main>
             <section class="gallery" id="gallery-container">
                 <div class="status-msg">Chargement des créations de Rass Pixels...</div>
             </section>
         </main>
 
-        <!-- LIGHTBOX MODAL -->
         <div class="lightbox" id="lightbox">
             <button class="lightbox-close" id="lightbox-close">&times;</button>
             <img src="" alt="Agrandissement" id="lightbox-img" />
         </div>
 
-        <!-- PIED DE PAGE -->
         <footer>
             <div>&copy; 2026 <strong>Fenohery Rass (Rass Pixels)</strong> &bull; Antananarivo, Madagascar</div>
             <div>Designed with Precision &bull; Hébergé via GitHub Pages</div>
@@ -1041,7 +1032,6 @@
                 if (!res.ok) throw new Error('Impossible de charger projects.json');
 
                 const data = await res.json();
-                // Tri anti-chronologique : créations récentes en premier
                 allProjects = data.sort((a, b) => new Date(b.date) - new Date(a.date));
 
                 buildDynamicFilters(allProjects);
