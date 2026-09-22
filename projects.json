@@ -1,4 +1,5 @@
 [
+<<<<<<< HEAD
   {
     "id": "proj-1",
     "title": "Nova Studio Identité",
@@ -39,4 +40,38 @@
     "date": "2026-09-22",
     "description": ""
   }
+=======
+    {
+        "id": "proj-1",
+        "title": "Malagasy Style Huion Mascot",
+        "category": "Digital Illustration",
+        "image": "https://cdnb.artstation.com/p/assets/images/images/052/288/881/large/rass-pixels-huion-mascot.jpg?1659432807",
+        "date": "2024-05-10",
+        "description": "Character design et concept de mascotte Huion inspiré de la culture malagasy (Aloalo). Réalisé sous Clip Studio Paint."
+    },
+    {
+        "id": "proj-2",
+        "title": "Synthwave 80s Tracklist EP Render",
+        "category": "3D & Rendu",
+        "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80",
+        "date": "2024-03-15",
+        "description": "Modélisation 3D et rendu rétro-futuriste sous Blender avec distorsions chromatiques, puis post-traitement sous Photoshop."
+    },
+    {
+        "id": "proj-3",
+        "title": "Vexel Art & Character Design",
+        "category": "Crafts",
+        "image": "https://cdnb.artstation.com/p/assets/images/images/073/194/239/20240228045855/smaller_square/rass-pixels-screen-coc.jpg?1709117935",
+        "date": "2024-01-20",
+        "description": "Travail de portrait précis en Vexel Art, gestion poussée des ombrages vectoriels et de la colorimétrie."
+    },
+    {
+        "id": "proj-4",
+        "title": "Identité Visuelle & Branding Studio",
+        "category": "Graphic Design",
+        "image": "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=800&q=80",
+        "date": "2023-11-10",
+        "description": "Conception de système d'identité, logos vectoriels et déclinaisons de supports print & digitaux sous Adobe Illustrator."
+    }
+>>>>>>> 86b87f0 (Mise à jour complète du portfolio avec les contenus officiels de Rass Pixels)
 ]
